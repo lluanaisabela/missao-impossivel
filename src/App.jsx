@@ -71,12 +71,10 @@ function App() {
           })
         }
 
-        {/* Trabalhooo */}
-        {/* <Card imagem={card1} />
-                <Card />
-                <Card />
-                <Card /> */}
-        {/* Trabalho */}
+            <Card imagem={card1} texto={"Missao Impossivel 2"} />
+            <Card imagem={card2} texto={"Missao Impossivel 3"} />
+            <Card imagem={card3} texto={"Missao Impossivel 4"} />
+            <Card imagem={card4} texto={"Missao Impossivel 5"} />
       </div>
       <Modal>
         <ModalHeader>
@@ -115,6 +113,7 @@ function App() {
           </div>
         </ModalBody>
       </Modal>
+    <Footer/>
     </>
   );
 }

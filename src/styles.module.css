@@ -1,4 +1,6 @@
 .title {
-    color: red;
+    color:#fff;
     background-color: green;
+    text-align: center;
+    border-radius: 5px;
 }

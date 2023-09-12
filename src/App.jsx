@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { Header } from './components/Header'
 import { Card } from './components/Card'
 import Modal, { ModalBody, ModalHeader } from './components/Modal'
@@ -17,29 +17,60 @@ import './styles/global.css'
 const requisicao = [
   {
     "id": 1,
-    "titulo": "Missão Impossivel 2",
-    "imagem": card1
+    "titulo": "Missão Impossível 2",
+    "imagem": card1,
+    "data": "22 de junho de 2000",
+    "direcao": "John Woo",
+    "elenco": "Tom Cruise, Dougray Scott, Thandiwe Newton",
+    "sinopse": ""
   },
   {
     "id": 2,
-    "titulo": "Missão Impossivel 3",
-    "imagem": card2
+    "titulo": "Missão Impossível 3",
+    "imagem": card2,
+    "data": "5 de maio de 2006",
+    "direcao": "J.J. Abrams",
+    "elenco": "Tom Cruise, Philip Seymour Hoffman, Ving Rhames",
+    "sinopse": ""
   },
   {
     "id": 3,
-    "titulo": "Missão Impossivel 5",
-    "imagem": card3
+    "titulo": "Missão Impossível 5",
+    "imagem": card3,
+    "data": "13 de agosto de 2015",
+    "direcao": "Christopher McQuarrie",
+    "elenco": "Tom Cruise, Jeremy Renner, Simon Pegg",
+    "sinopse": "Ethan Hunt luta para expor uma organização secreta chamada Sindicato."
   },
   {
     "id": 4,
-    "titulo": "Missão Impossivel 7",
-    "imagem": card4
+    "titulo": "Missão Impossível 7",
+    "imagem": card4,
+    "data": "13 de julho de 2023",
+    "direcao": "Christopher McQuarrie",
+    "elenco": "Tom Cruise, Hayley Atwell, Ving Rhames",
+    "sinopse": "No novo capítulo da franquia Missão Impossível, o agente Ethan Hunt e sua equipe partem em um novo desafio para rastrear uma arma que, se cair em mãos erradas, pode ameaçar toda a humanidade."
   }
 ]
 
 
 // https://github.com/profchines
 function App() {
+
+  const refFilmeModal = useRef({
+    titulo: '',
+    data: '',
+    direcao: '',
+    elenco:'',
+    sinopse:'',
+  })
+
+  const [showModal, setShowModal] = useState(false)
+
+  function onClickCard(filme) {
+    refFilmeModal.current = filme
+    setShowModal(true)
+  }
 
   return (
     <>
@@ -66,6 +97,8 @@ function App() {
               <Card
                 key={filme.id}
                 imagem={filme.imagem}
+                title={filme.titulo}
+                onClick={()=> onClickCard(filme)}
               />
             )
           })
@@ -76,9 +109,12 @@ function App() {
             <Card imagem={card3} texto={"Missao Impossivel 4"} />
             <Card imagem={card4} texto={"Missao Impossivel 5"} />
       </div>
-      <Modal>
+      <Modal
+      show={showModal}
+      setShow={setShowModal}
+      >
         <ModalHeader>
-          <h2>Chaves</h2>
+          <h2>{refFilmeModal.current.titulo}</h2>
         </ModalHeader>
         <ModalBody>
           <p
@@ -87,7 +123,7 @@ function App() {
               marginBottom: 10
             }}
           >
-            04/09/2023
+           {refFilmeModal.current.data}
           </p>
           <div
             style={{
@@ -108,12 +144,41 @@ function App() {
                 fontSize: '0.8rem'
               }}
             >
-              Seu Madruga
+              {refFilmeModal.current.direcao}
             </p>
           </div>
+          <div
+            style={{
+              display: 'flex',
+              marginBottom: 10
+            }}
+          >
+            <p
+              style={{
+                fontSize: '0.8rem',
+                color: '#b3b3b3'
+              }}
+            >
+              Elenco:
+            </p>
+            <p
+              style={{
+                fontSize: '0.8rem'
+              }}
+            >
+              {refFilmeModal.current.elenco}
+            </p>
+          </div>
+          <p
+            style={{
+              textAlign:"justify"
+            }}
+          >
+            {refFilmeModal.current.sinopse}
+          </p>
         </ModalBody>
       </Modal>
-    <Footer/>
+    {/* <Footer/> */}
     </>
   );
 }
